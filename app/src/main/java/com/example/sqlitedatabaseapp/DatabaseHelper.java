@@ -1,5 +1,6 @@
 package com.example.sqlitedatabaseapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,12 +25,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE_NAME
-                   + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_PHONE_NO + "TEXT" + ")");
+                   + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_PHONE_NO + " TEXT" + ")");
 
 
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+       //  SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        sqLiteDatabase.close();
+       // sqLiteDatabase.close();
     }
 
     @Override
@@ -37,5 +38,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public void addContact(String name,String number){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_NAME,name);
+        contentValues.put(KEY_PHONE_NO,number);
+
+        sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
     }
 }
