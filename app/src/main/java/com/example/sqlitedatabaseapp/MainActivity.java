@@ -9,6 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -24,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
         databaseHelper.addContact("A","10");
         databaseHelper.addContact("A","10");
 
+        ArrayList<ContactModel> arrayList = databaseHelper.fetchContact();
+
+        for (int i=0;i<arrayList.size();i++){
+            Log.d("CONTACT INFO "+arrayList.get(i).name,"PHONE NO"+ arrayList.get(i).phone_no);
+        }
 
     }
 }

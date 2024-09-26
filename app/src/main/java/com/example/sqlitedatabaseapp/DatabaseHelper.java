@@ -2,16 +2,20 @@ package com.example.sqlitedatabaseapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ContactDB";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "Contact";
+
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE_NO = "phone_no";
@@ -48,5 +52,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_PHONE_NO,number);
 
         sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+    }
+
+    public ArrayList<ContactModel> fetchContact(){
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+      Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ TABLE_NAME,null);
+
+      ArrayList<ContactModel> arrayList = new ArrayList<>();
+
+      while (cursor.moveToNext()){
+
+          ContactModel contactModel = new ContactModel();
+
+          contactModel.id = cursor.getInt(0);
+          contactModel.name = cursor.getString(1);
+          contactModel.phone_no = cursor.getString(2);
+
+          arrayList.add(contactModel);
+      }
+      return arrayList;
     }
 }
