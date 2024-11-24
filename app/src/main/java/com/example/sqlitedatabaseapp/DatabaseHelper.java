@@ -74,4 +74,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
       }
       return arrayList;
     }
+
+
+    public void updateData(ContactModel contactModel){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PHONE_NO,contactModel.phone_no);
+
+        sqLiteDatabase.update(TABLE_NAME,contentValues,KEY_ID +" = "+contactModel.id,null);
+    }
 }

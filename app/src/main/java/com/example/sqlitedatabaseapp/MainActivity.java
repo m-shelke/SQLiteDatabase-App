@@ -27,13 +27,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         databaseHelper.addContact("A","10");
-        databaseHelper.addContact("A","10");
+        databaseHelper.addContact("B","20");
+        databaseHelper.addContact("C","30");
 
         ArrayList<ContactModel> arrayList = databaseHelper.fetchContact();
 
         for (int i=0;i<arrayList.size();i++){
             Log.d("CONTACT INFO "+arrayList.get(i).name,"PHONE NO"+ arrayList.get(i).phone_no);
         }
+
+
+        ContactModel contactModel = new ContactModel();
+        contactModel.id = 1;
+        contactModel.name = "Raghav";
+        contactModel.phone_no = "123456789";
+
+        databaseHelper.updateData(contactModel);
 
     }
 }
