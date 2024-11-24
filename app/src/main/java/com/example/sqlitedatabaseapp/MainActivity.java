@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper.addContact("B","20");
         databaseHelper.addContact("C","30");
 
+        databaseHelper.deleteData(60);
+
+
+
         ArrayList<ContactModel> arrayList = databaseHelper.fetchContact();
 
         for (int i=0;i<arrayList.size();i++){
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         contactModel.phone_no = "123456789";
 
         databaseHelper.updateData(contactModel);
+
 
     }
 }
